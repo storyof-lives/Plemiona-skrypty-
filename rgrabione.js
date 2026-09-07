@@ -746,7 +746,76 @@ const Script = {
 
         data.forEach((player, index) => {
 
-            bbcode +=
-                `[*][b]${index + 1}[/b][|]` +
-                `${player.rank}[|]` +
-                `[player]${player.player}[
+    bbcode +=
+        `[*][b]${index + 1}[/b][|]` +
+        `${player.rank}[|]` +
+        `[player]${player.player}[/player][|]` +
+        `[ally]${player.ally}[/ally][|]` +
+        `[b]${player.loot}[/b][|]` +
+        `${player.time}\n`;
+});
+
+bbcode += "[/table]";
+
+document.getElementById(NS + "_copy").onclick =
+    async () => {
+
+        try {
+
+            await navigator.clipboard.writeText(bbcode);
+
+            document.getElementById(NS + "_copy")
+                .innerText = "✅ Skopiowano!";
+
+        } catch (e) {
+
+            alert(
+                "Nie udało się skopiować BBCode."
+            );
+        }
+    };
+
+document.getElementById(NS + "_download").onclick =
+    () => {
+
+        const blob =
+            new Blob(
+                [bbcode],
+                { type: "text/plain;charset=utf-8" }
+            );
+
+        const url =
+            URL.createObjectURL(blob);
+
+        const a =
+            document.createElement("a");
+
+        a.href = url;
+        a.download =
+            "ranking_zrabowane.txt";
+
+        document.body.appendChild(a);
+
+        a.click();
+
+        a.remove();
+
+        URL.revokeObjectURL(url);
+    };
+}
+
+};
+
+Script.init();
+
+} catch (e) {
+
+    console.error(e);
+
+    alert(
+        "Błąd skryptu:\n\n" +
+        e.message
+    );
+}
+
+})();
