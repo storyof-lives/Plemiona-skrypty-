@@ -10,7 +10,7 @@
     ============================== */
 
     let targetTribes = [];
-    let topLimit = 2000;
+    let topLimit = 4000;
     let minTotal = 0;
 
     const perPage = 25;
@@ -128,7 +128,7 @@
         <input
             id="${NS}_top"
             type="number"
-            value="2000"
+            value="4000"
             min="25"
             step="25"
         >
@@ -373,7 +373,7 @@
                             NS + "_top"
                         ).value,
                         10
-                    ) || 2000;
+                    ) || 4000;
 
                 minTotal =
                     parseNumber(
